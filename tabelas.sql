@@ -26,3 +26,13 @@ CREATE TABLE item_do_pedido (
     FOREIGN KEY (id_pedido) REFERENCES pedidos (id),
     FOREIGN KEY (id_produto) REFERENCES produtos (id)
 );
+
+CREATE TABLE avaliacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    detalheAvaliacao VARCHAR(255),
+    nota INT,
+    id_cliente INT,
+    id_itemPedido INT,
+    FOREIGN KEY (id_cliente) REFERENCES clientes (id),
+    FOREIGN KEY (id_itemPedido) REFERENCES pedidos (id)
+);
