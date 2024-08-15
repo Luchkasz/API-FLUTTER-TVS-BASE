@@ -21,3 +21,21 @@ export const incluirAvaliacao = async (req: Request, res: Response) => {
 		res.status(500).json({ message: "Erro ao incluir avaliação" });
 	}
 };
+
+export const getAvaliacaoById = async (req: Request, res: Response) => {
+  try {
+    const avaliacaoId = parseInt(req.params.id, 10);
+    const avaliacao = await Avaliacao.findByPk(avaliacaoId);
+
+    if(avaliacao) {
+      res.json(avaliacao);
+    } 
+		else {
+      res.status(404).json({ message: "Avaliacao não encontrada" });
+    }
+  } 
+	catch (error) {
+    console.error("Erro ao buscar avaliacao:", error);
+    res.status(500).json({ message: "Erro ao buscar avaliacao" });
+  }
+};
