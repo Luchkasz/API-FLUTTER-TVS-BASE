@@ -71,3 +71,22 @@ export const atualizarAvaliacao = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Erro ao atualizar avaliacao" });
   }
 };
+
+export const excluirAvaliacao = async (req: Request, res: Response) => {
+  try {
+    const avaliacaoId = parseInt(req.params.id, 10);
+    const avaliacao = await Avaliacao.findByPk(avaliacaoId);
+
+    if(avaliacao) {
+      await avaliacao.destroy();
+      res.json({ message: "Avaliacao excluída com sucesso" });
+    } 
+		else {
+      res.status(404).json({ message: "Avaliacao não encontrado" });
+    }
+  } 
+	catch (error) {
+    console.error("Erro ao excluir avaliacao:", error);
+    res.status(500).json({ message: "Erro ao excluir avaliacao" });
+  }
+};
