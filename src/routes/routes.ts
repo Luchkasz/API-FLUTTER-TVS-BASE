@@ -40,7 +40,7 @@ router.delete("/excluirItemDoPedido/:id", ItemDoPedidoController.excluirItemDoPe
 // AVALIACAO
 router.post("/incluirAvaliacao", AvaliacaoController.incluirAvaliacao);
 router.get("/avaliacao/:id", AvaliacaoController.getAvaliacaoById);
-// router.get("/avaliacoes", AvaliacaoController.listarAvaliacaoes);
+router.get("/avaliacoes", AvaliacaoController.listarAvaliacaoes);
 // router.put("/atualizarAvaliacao/:id", AvaliacaoController.atualizarAvaliacao);
 // router.put("/excluirAvaliacao/:id", AvaliacaoController.excluirAvaliacao);
 

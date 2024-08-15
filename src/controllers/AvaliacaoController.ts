@@ -39,3 +39,14 @@ export const getAvaliacaoById = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Erro ao buscar avaliacao" });
   }
 };
+
+export const listarAvaliacaoes = async (req: Request, res: Response) => {
+  try {
+    const avaliacoes = await Avaliacao.findAll();
+    res.json({ avaliacoes });
+  } 
+	catch (error) {
+    console.error("Erro ao listar avaliacoes:", error);
+    res.status(500).json({ message: "Erro ao listar avaliacoes" });
+  }
+};
