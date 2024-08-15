@@ -50,3 +50,24 @@ export const listarAvaliacaoes = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Erro ao listar avaliacoes" });
   }
 };
+
+export const atualizarAvaliacao = async (req: Request, res: Response) => {
+  try {
+    const avaliacaoId = parseInt(req.params.id, 10);
+    const { detalheAvaliacao, nota } = req.body;
+
+    const avaliacao = await Avaliacao.findByPk(avaliacaoId);
+
+    if(avaliacao) {
+      await avaliacao.update({ detalheAvaliacao, nota });
+      res.json(avaliacao);
+    } 
+		else {
+      res.status(404).json({ message: "Avaliacao não encontrado" });
+    }
+  } 
+	catch (error) {
+    console.error("Erro ao atualizar avaliacao:", error);
+    res.status(500).json({ message: "Erro ao atualizar avaliacao" });
+  }
+};
