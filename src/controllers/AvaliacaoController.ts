@@ -12,6 +12,10 @@ export const incluirAvaliacao = async (req: Request, res: Response) => {
 			return res.status(400).json({ message: "Avaliação já realizada" });
 		}
 
+    if(nota < 0 || nota > 5) {
+      return res.status(400).json({ message: "Nota inválida" });
+    }
+
 		const novaAvaliacao = await Avaliacao.create({ detalheAvaliacao, nota, id_cliente, id_pedido });
 
 		res.status(201).json(novaAvaliacao);
