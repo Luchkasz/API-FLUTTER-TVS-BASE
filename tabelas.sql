@@ -32,7 +32,7 @@ CREATE TABLE avaliacoes (
     detalheAvaliacao VARCHAR(255),
     nota INT,
     id_cliente INT,
-    id_itemPedido INT,
+    id_pedido INT,
     FOREIGN KEY (id_cliente) REFERENCES clientes (id),
-    FOREIGN KEY (id_itemPedido) REFERENCES pedidos (id)
+    FOREIGN KEY (id_pedido) REFERENCES pedidos (id)
 );

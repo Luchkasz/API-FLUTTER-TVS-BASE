@@ -8,7 +8,7 @@ export interface AvaliacaoInstance extends Model {
   detalheAvaliacao: string;
   nota: number;
   id_cliente: number;
-  id_itemPedido: number;
+  id_pedido: number;
 }
 
 export const Avaliacao = sequelize.define<AvaliacaoInstance>(
@@ -34,7 +34,7 @@ export const Avaliacao = sequelize.define<AvaliacaoInstance>(
           key: "id",
         },
       },
-      id_itemPedido: {
+      id_pedido: {
         type: DataTypes.INTEGER,
         references: {
           model: Pedido,
@@ -43,7 +43,7 @@ export const Avaliacao = sequelize.define<AvaliacaoInstance>(
       },
     },
     {
-      tableName: "avaliacao",
+      tableName: "avaliacoes",
       timestamps: false,
     }
 );
