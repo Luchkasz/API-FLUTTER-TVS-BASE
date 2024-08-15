@@ -5,6 +5,7 @@ import * as ClienteController from "../controllers/ClienteController";
 import * as ItemDoPedidoController from "../controllers/ItemDoPedidoController";
 import * as PedidoController from "../controllers/PedidoController";
 import * as ProdutoController from "../controllers/ProdutoController";
+import * as AvaliacaoController from "../controllers/AvaliacaoController";
 
 const router = Router();
 
@@ -35,5 +36,12 @@ router.get("/itensDoPedido/:id", ItemDoPedidoController.getItemDoPedidoById);
 router.post("/incluirItemDoPedido", ItemDoPedidoController.incluirItemDoPedido);
 router.put("/atualizarItemDoPedido/:id", ItemDoPedidoController.atualizarItemDoPedido);
 router.delete("/excluirItemDoPedido/:id", ItemDoPedidoController.excluirItemDoPedido);
+
+// AVALIACAO
+router.post("/incluirAvaliacao", AvaliacaoController.incluirAvaliacao);
+// router.get("/avaliacao/:id", AvaliacaoController.getAvaliacaoById);
+// router.get("/avaliacoes", AvaliacaoController.listarAvaliacaoes);
+// router.put("/atualizarAvaliacao/:id", AvaliacaoController.atualizarAvaliacao);
+// router.put("/excluirAvaliacao/:id", AvaliacaoController.excluirAvaliacao);
 
 export default router;
