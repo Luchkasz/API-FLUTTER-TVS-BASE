@@ -66,6 +66,7 @@ export const getItemDoPedidoById = async (req: Request, res: Response) => {
 
       res.json(respostaFormatada);
     } else {
+      // Já retorna 404 se o item nao for encontrado
       res.status(404).json({ message: "Item do Pedido não encontrado" });
     }
   } catch (error) {
