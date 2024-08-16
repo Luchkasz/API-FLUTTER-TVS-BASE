@@ -52,3 +52,21 @@ describe("Teste da Rota getAvaliacaoById", () => {
     expect(response.body).toHaveProperty("message", "Avaliacao não encontrada");
   });
 });
+
+describe("Teste da Rota listarAvaliacoes", () => {
+  it("Deve retornar uma lista de avaliacoes", async () => {
+    const response = await request(app).get("/avaliacoes");
+
+    expect(response.status).toBe(200);
+    expect(response.body.avaliacoes).toBeInstanceOf(Array);
+  });
+
+  it("Deve retornar a lista de avaliacoes dentro de um tempo aceitável", async () => {
+    const start = Date.now();
+    const response = await request(app).get("/avaliacoes");
+    const duration = Date.now() - start;
+
+    expect(response.status).toBe(200);
+    expect(duration).toBeLessThan(100);
+  });
+});
