@@ -8,6 +8,10 @@ export const getItemDoPedidoById = async (req: Request, res: Response) => {
   try {
     const itemId = parseInt(req.params.id, 10);
 
+    if(isNaN(itemId)) {
+      return res.status(400).json({ message: "Id deve ser um numero" });
+    }
+
     // Inclua Produto, Pedido e Cliente associados com os aliases corretos
     const itemDoPedido = await ItemDoPedido.findByPk(itemId, {
       include: [
