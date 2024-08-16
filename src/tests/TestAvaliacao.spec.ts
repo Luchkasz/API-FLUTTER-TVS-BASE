@@ -71,6 +71,49 @@ describe("Teste da Rota listarAvaliacoes", () => {
   });
 });
 
+describe("Teste da Rota atualizarAvaliacao", () => {
+  let avaliacaoId: number;
+
+  beforeAll(async () => {
+    const avaliacao = await Avaliacao.create({
+      detalheAvaliacao: "mais ou menos",	
+			nota: 2.5,
+			id_cliente: 109,
+			id_pedido: 7
+    });
+    avaliacaoId = avaliacao.id;
+  });
+
+  it("Deve atualizar uma avaliacao com sucesso", async () => {
+    const avaliacaoAtualizado = {
+      detalheAvaliacao: "é, nao tava tao ruim",
+			nota: 3.5,
+    };
+
+    const response = await request(app).put(`/atualizarAvaliacao/${avaliacaoId}`).send(avaliacaoAtualizado);
+
+    expect(response.status).toBe(200);
+    expect(response.body.detalheAvaliacao).toBe(avaliacaoAtualizado.detalheAvaliacao);
+  });
+
+  it("Deve retornar erro ao tentar atualizar uma avaliacao inexistente", async () => {
+    const avaliacaoInesistente = 999999;
+    const avaliacaoAtualizado = {
+      detalheAvaliacao: "inesistente",
+			nota: 3.5,
+    };
+
+    const response = await request(app).put(`/atualizarAvaliacao/${avaliacaoInesistente}`).send(avaliacaoAtualizado);
+
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("message", "Avaliacao não encontrada");
+  });
+
+  afterAll(async () => {
+    await Avaliacao.destroy({ where: { id: avaliacaoId } });
+  });
+});
+
 describe("Teste da Rota excluirAvaliacao", () => {
   let avaliacaoId: number;
 
