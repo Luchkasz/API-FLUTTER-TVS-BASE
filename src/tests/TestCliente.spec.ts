@@ -82,6 +82,16 @@ describe("Teste da Rota listarClientes", () => {
     expect(response.status).toBe(200);
     expect(duration).toBeLessThan(100); // Verifica se a resposta é retornada em menos de 500ms
   });
+
+  it("Deve retornar 404 quando não houver nenhum cliente", async () => {
+    await Cliente.destroy({ where: {} });
+
+    console.log("deve 404");
+    
+    const response = await request(app).get("/clientes");
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty("message", "Nenhum cliente encontrado");
+  });
 });
 
 describe("Teste da Rota excluirCliente", () => {
