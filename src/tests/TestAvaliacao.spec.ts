@@ -70,3 +70,32 @@ describe("Teste da Rota listarAvaliacoes", () => {
     expect(duration).toBeLessThan(100);
   });
 });
+
+describe("Teste da Rota excluirPedido", () => {
+  let avaliacaoId: number;
+
+  beforeAll(async () => {
+		const avaliacao = await Avaliacao.create({
+			detalheAvaliacao: "mto bommmm",
+			nota: 5,
+			id_cliente: 109,
+			id_pedido: 7
+		});
+		avaliacaoId = avaliacao.id;
+  });
+
+  afterAll(async () => {
+    await Avaliacao.destroy({ where: { id: avaliacaoId } });
+  });
+
+  it("Deve excluir uma avaliacao existente", async () => {
+    const response = await request(app).delete(`/excluirAvaliacao/${avaliacaoId}`);
+
+    // Verifica se a resposta da API está correta
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("message", "Avaliacao excluída com sucesso");
+
+    const avaliacaoExcluida = await Avaliacao.findByPk(avaliacaoId);
+    expect(avaliacaoExcluida).toBeNull();
+  });
+});
