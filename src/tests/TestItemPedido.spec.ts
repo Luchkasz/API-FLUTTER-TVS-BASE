@@ -130,3 +130,16 @@ describe("Teste da Rota atualizarProduto", () => {
     await Produto.destroy({ where: { id: produtoId } });
   });
 });
+
+describe("Teste da Rota itensDoPedido/:id", () => {
+  let letItemDoPedidoId: number = 1;
+
+  it("Deve retornar o item do pedido com as informacoes do cliente", async () => {
+    const response = await request(app).get(`/itensDoPedido/${letItemDoPedidoId}`);
+    expect(response.status).toBe(200);
+    expect(response.body.itemDoPedido.pedido.cliente).toHaveProperty("id");
+    expect(response.body.itemDoPedido.pedido.cliente).toHaveProperty("nome");
+    expect(response.body.itemDoPedido.pedido.cliente).toHaveProperty("sobrenome");
+    expect(response.body.itemDoPedido.pedido.cliente).toHaveProperty("cpf");
+  });
+});
