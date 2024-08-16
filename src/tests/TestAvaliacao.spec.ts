@@ -71,7 +71,7 @@ describe("Teste da Rota listarAvaliacoes", () => {
   });
 });
 
-describe("Teste da Rota excluirPedido", () => {
+describe("Teste da Rota excluirAvaliacao", () => {
   let avaliacaoId: number;
 
   beforeAll(async () => {
@@ -91,7 +91,6 @@ describe("Teste da Rota excluirPedido", () => {
   it("Deve excluir uma avaliacao existente", async () => {
     const response = await request(app).delete(`/excluirAvaliacao/${avaliacaoId}`);
 
-    // Verifica se a resposta da API está correta
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("message", "Avaliacao excluída com sucesso");
 
