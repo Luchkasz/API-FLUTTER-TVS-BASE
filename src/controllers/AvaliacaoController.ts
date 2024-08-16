@@ -67,7 +67,7 @@ export const atualizarAvaliacao = async (req: Request, res: Response) => {
       res.json(avaliacao);
     } 
 		else {
-      res.status(404).json({ message: "Avaliacao não encontrado" });
+      res.status(404).json({ message: "Avaliacao não encontrada" });
     }
   } 
 	catch (error) {
