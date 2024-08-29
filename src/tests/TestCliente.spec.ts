@@ -3,6 +3,7 @@ import * as server from "../server";
 import { app } from "../server"; // Certifique-se de que o caminho está correto
 import { Request, Response } from "express";
 import { Cliente } from "../models/Cliente";
+import { Pedido } from "../models/Pedido";
 
 describe("Teste da Rota incluirCliente", () => {
   let clienteId: number;
@@ -189,3 +190,41 @@ describe("Teste da Rota atualizarCliente", () => {
     await Cliente.destroy({ where: { id: [clienteId, clienteExistenteId] } });
   });
 });
+
+describe("teste de exclusao de cliente com pedidos associados", () => {
+  let clienteId: number;
+  let pedidoId: number;
+
+  beforeAll(async () => {
+    const cliente = await Cliente.create({
+      nome: "Cliente Associado",
+      sobrenome: "Para Exclusão",
+      cpf: "22222222222"
+    });
+    clienteId = cliente.id;
+
+    const pedido = await Pedido.create({
+      data: "2024-08-01",
+      id_cliente: clienteId
+    });
+    pedidoId = pedido.id;
+  });
+
+  it("nao deve excluir um cliente que possui pedidos associados", async () => {
+    const response = await request(app).delete(`/excluirCliente/${clienteId}`);
+
+    expect(response.status).toBe(400);
+
+    const clienteExistente = await Cliente.findByPk(clienteId);
+    expect(clienteExistente).not.toBeNull();
+
+    const pedidoExistente = await Pedido.findByPk(pedidoId);
+    expect(pedidoExistente).not.toBeNull();
+  });
+
+  afterAll(async () => {
+    await Pedido.destroy({ where: { id: pedidoId } });
+    await Cliente.destroy({ where: { id: clienteId } });
+  });
+});
+
